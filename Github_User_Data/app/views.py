@@ -32,4 +32,4 @@ def profile(request):
     #appending dicitionary from json to list
     parsedData.append(userData)
 
-    return HttpResponse(parsedData)
+    return render(request, 'app/profile.html', {'data': parsedData})
