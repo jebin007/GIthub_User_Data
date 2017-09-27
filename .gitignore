@@ -1,3 +1,5 @@
 /venv
 /Github_User_Data/Github_User_Data/__pycache__
 /Github_User_Data/app/__pycache__
+/Github_User_Data/app/static/bootstrap
+/Github_User_Data/app/static/jquery
