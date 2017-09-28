@@ -11,25 +11,29 @@ def test(request):
     return HttpResponse('My Second View!')
 
 def profile(request):
-    jsonList = []
-    req = requests.get('https://api.github.com/users/DrkSephy')
-    jsonList.append(json.loads(req.content))
-
     parsedData = []
-    userData = {}
+    
+    if request.method == 'POST':
+        username = request.POST.get('user')
+        req = requests.get('https://api.github.com/users/' + username)
+        jsonList = []
+    
+        jsonList.append(json.loads(req.content))
+        
+        userData = {}
 
-    #appening all json data to dicitionary
-    for data in jsonList:
-        userData['name'] = data['name']
-        userData['blog'] = data['blog']
-        userData['email'] = data['email']
-        userData['public_gists'] = data['public_gists']
-        userData['public_repos'] = data['public_repos']
-        userData['avatar_url'] = data['avatar_url']
-        userData['followers'] = data['followers']
-        userData['following'] = data['following']
+        #appening all json data to dicitionary
+        for data in jsonList:
+            userData['name'] = data['name']
+            userData['blog'] = data['blog']
+            userData['email'] = data['email']
+            userData['public_gists'] = data['public_gists']
+            userData['public_repos'] = data['public_repos']
+            userData['avatar_url'] = data['avatar_url']
+            userData['followers'] = data['followers']
+            userData['following'] = data['following']
 
-    #appending dicitionary from json to list
-    parsedData.append(userData)
+        #appending dicitionary from json to list
+        parsedData.append(userData)
 
     return render(request, 'app/profile.html', {'data': parsedData})
