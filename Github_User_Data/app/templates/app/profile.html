@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='myapp'>
 <head>
     <script src="/static/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="/static/js/myapp.js"></script>
+
     <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap-theme.min.css">
 </head>
 <body>
 
         <h1 class="text-center"> Github User Data </h1>
-        <div class="col-lg-12">
+        <div ng-controller='GithubController' class="col-lg-12">
 
             <style>
                 .form-signin {
@@ -17,19 +20,19 @@
                     padding: 15px;
                     margin: 0 auto;
                 }    
-             </style>
+             </style>     
 
             <div class="container text-center">
-                <form class="form-signin" id="login_form" method="post" action="/app/profile/">
+                
                 
                 {% csrf_token %}
                 
 
                 <br>
-                <input type="text" name="user" class="form-control" placeholder="Github User Name, e.g: DrkSephy" value="" required autofocus>
+                <input ng-model="user" type="text" class="form-control" placeholder="Github User Name, e.g: DrkSephy" value="" required autofocus />
                 <br>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Get Data</button>
-                </form>
+                <input type="button" value="Get Data" ng-click="getdata(user)" />
+                
             </div>
 
 
@@ -48,17 +51,17 @@
                 </thead>
                 <tbody>
                 
-                {% for key in data %}
+
                     <tr>
-                        <td>{{ key.name }}</td>
-                        <td>{{ key.blog }}</td>
-                        <td>{{ key.public_repos }}</td>
-                        <td>{{ key.public_gists }}</td>
-                        <td>{{ key.email }}</td>
-                        <td>{{ key.followers }}</td>
-                        <td>{{ key.following }}</td>
+                        <td>{$ data.name $}</td>
+                        <td>{$ data.blog $}</td>
+                        <td>{$ data.public_repos $}</td>
+                        <td>{$ data.public_gists $}</td>
+                        <td>{$ data.email $}</td>
+                        <td>{$ data.followers $}</td>
+                        <td>{$ data.following $}</td>
                     </tr>
-                {% endfor %}
+
                 
                 </tbody>
                 </table>
